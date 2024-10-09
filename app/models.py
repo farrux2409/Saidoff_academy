@@ -29,7 +29,7 @@ class ForWhom(models.Model):
 class ComputerFeatures(models.Model):
     protcessor = models.CharField(max_length=100)
     cpu = models.CharField(max_length=100)
-    video_card = models.FileField(upload_to='media/')
+    video_card = models.CharField(max_length=100)
     display = models.CharField(max_length=100)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='computer_features')
 
