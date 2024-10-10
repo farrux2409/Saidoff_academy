@@ -37,8 +37,6 @@ class CourseDetailAPIView(RetrieveAPIView):
     queryset = Course.objects.all()
 
 
-
-
 class PartnersAPIView(ListAPIView):
     queryset = Partner.objects.all()
     serializer_class = PartnersModelSerializer
