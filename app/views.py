@@ -6,7 +6,7 @@ from app.models import WhyUs, UserContactApplication, Course, Partner, OurProgra
 from .serializers import WhyUsModelSerializer, UserContactApplicationModelSerializer, CourseModelSerializer, \
     PartnersModelSerializer, OurProgramModelSerializer, OurProgramInfoModelSerializer, FeadBackModelSerializer, \
     MentorModelSerializer, FaqModelSerializer, ForWhomModelSerializer, CoursePlanModelSerializer, CourseSerializer, \
-    ModulInfoModelSerializer, ComputerFeaturesModelSerializer, TeamModelSerializer
+    ModulInfoModelSerializer, ComputerFeaturesModelSerializer, TeamModelSerializer, CourseDetailModelSerializer
 
 
 # Create your views here.
@@ -30,6 +30,15 @@ class CoursesAPIView(ListAPIView):
     permission_classes = (AllowAny,)
 
 
+class CourseDetailAPIView(RetrieveAPIView):
+    serializer_class = CourseDetailModelSerializer
+    permission_classes = (AllowAny,)
+    lookup_field = 'pk'
+    queryset = Course.objects.all()
+
+
+
+
 class PartnersAPIView(ListAPIView):
     queryset = Partner.objects.all()
     serializer_class = PartnersModelSerializer
@@ -46,7 +55,7 @@ class OurProgramInfoAPIView(RetrieveAPIView):
     queryset = OurProgramInfo.objects.all()
     serializer_class = OurProgramInfoModelSerializer
     permission_classes = (AllowAny,)
-    lookup_field = 'id'
+    lookup_field = 'pk'
 
 
 class StudentFeadBackAPIView(ListAPIView):
@@ -59,6 +68,15 @@ class OurMentorsAPIView(ListAPIView):
     queryset = Mentor.objects.all()
     serializer_class = MentorModelSerializer
     permission_classes = (AllowAny,)
+
+
+class MentorDetailAPIView(RetrieveAPIView):
+    serializer_class = MentorModelSerializer
+    permission_classes = (AllowAny,)
+    lookup_field = 'pk'
+
+    def get_queryset(self):
+        return Mentor.objects.prefetch_related('mentor_workplace').all()
 
 
 class FAQAPIView(ListAPIView):

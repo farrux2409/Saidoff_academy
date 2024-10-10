@@ -11,19 +11,19 @@ class Course(models.Model):
     image = models.ImageField(upload_to='media/')
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class UserContactApplication(models.Model):
     full_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100, validators=[uzbek_phone_validator])
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,related_name='user_applications')
     is_check = models.BooleanField(default=False)
 
 
 class ForWhom(models.Model):
     title = models.CharField(max_length=100)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='for_whom')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='whom')
 
 
 class ComputerFeatures(models.Model):
@@ -31,7 +31,7 @@ class ComputerFeatures(models.Model):
     cpu = models.CharField(max_length=100)
     video_card = models.CharField(max_length=100)
     display = models.CharField(max_length=100)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='computer_features')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='computer_feature')
 
     def __str__(self):
         return self.protcessor
@@ -47,7 +47,7 @@ class CourseModul(models.Model):
 
 class ModulInfo(models.Model):
     modul_lesson = models.CharField(max_length=100)
-    course_modul = models.ForeignKey(CourseModul, on_delete=models.CASCADE, related_name='modul_lesson')
+    course_modul = models.ForeignKey(CourseModul, on_delete=models.CASCADE, related_name='lesson')
 
     def __str__(self):
         return self.modul_lesson
@@ -108,10 +108,9 @@ class CoursePlan(models.Model):
     time_for_practice = models.IntegerField()
     for_theory = models.IntegerField()
     for_practice = models.IntegerField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_plan')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='plan')
 
-    def __str__(self):
-        return self.course
+
 
 
 class Mentor(models.Model):
@@ -129,7 +128,7 @@ class Mentor(models.Model):
 
 class MentorWorkPlace(models.Model):
     logo = models.ImageField(upload_to='media/')
-    mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE, related_name='mentor_workplace')
+    mentor_work = models.ForeignKey(Mentor, on_delete=models.CASCADE, related_name='workplace')
 
 
 class Team(models.Model):

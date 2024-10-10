@@ -102,7 +102,7 @@ class MentorAdmin(admin.ModelAdmin):
 
 @admin.register(MentorWorkPlace)
 class MentorWorkPlaceAdmin(admin.ModelAdmin):
-    list_display = ('logo', 'mentor')
+    list_display = ('logo', 'mentor_work')
     search_fields = ('logo',)
     list_filter = ('logo',)
 
