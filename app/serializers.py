@@ -123,3 +123,5 @@ class CourseDetailModelSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['course_modul', 'course_plan', 'computer_features', 'title', 'for_whom', 'course_mentor',
                   'description', 'image']
+
+
